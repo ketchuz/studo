@@ -54,7 +54,8 @@
     '$routeProvider', function($routeProvider) {
       return $routeProvider.when('/', {
         controller: 'HomeCtrl',
-        templateUrl: 'components/home/homeView.html'
+        templateUrl: 'components/home/homeView.html',
+        requiresLogin: true
       }).when('/login', {
         controller: 'authenticationCtrl',
         templateUrl: 'shared/authentication/login.html'
@@ -111,11 +112,13 @@
   app = angular.module('studo');
 
   app.directive('navigationBar', [
-    function() {
+    'UserInfo', function(UserInfo) {
       return {
         restrict: 'E',
-        templateUrl: '/shared/navigation/navbar.html',
-        controler: 'UserInfoCtrl'
+        transclude: true,
+        scope: true,
+        replace: true,
+        templateUrl: '/shared/navigation/navbar.html'
       };
     }
   ]);
@@ -137,7 +140,8 @@
       });
       $rootScope.$on('logout-done', function() {
         $scope.profile = null;
-        return $scope.isAuthenticated = false;
+        $scope.isAuthenticated = false;
+        return $location.path('/login');
       });
       $scope.signIn = function() {
         return UserInfo.login();
@@ -164,6 +168,7 @@
       };
       o.authenticate = function(profile, token) {
         var u;
+        console.log(profile.name);
         o.user = profile;
         $rootScope.$broadcast('login-done');
         return u = auth.authenticate(profile, token);
@@ -190,6 +195,7 @@
         store.remove('token');
         o.user = null;
         o.isAuthenticated = false;
+        $location.path('/login');
         return $rootScope.$broadcast('logout-done');
       };
       o.getUserInfo = function() {

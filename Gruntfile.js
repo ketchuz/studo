@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 				options: {livereload: true}
 			},
 			html: {
-				files: ['app/.html',  'app/shared/**/*.html', 'app/components/**/*.html'],
+				files: ['app/*.html',  'app/shared/**/*.html', 'app/components/**/*.html'],
 				options: {livereload: true}
 			}
 		},

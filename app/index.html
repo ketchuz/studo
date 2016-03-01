@@ -2,28 +2,18 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Studo</title>
-
+	<link href='https://fonts.googleapis.com/css?family=Ek+Mukta:400,200,300' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
-	<!-- <div ng-controller="UserInfoCtrl">
-		<div ng-show="isAuthenticated">
-			<img ng-src="{{profile.picture}}" alt="">
-			<span> {{profile.name}} </span>|
-			<span><a href="" ng-click="logout()">Logout</a></span>
-		</div>
-		<div ng-hide="isAuthenticated">
-			<span><a href="#/login">Login</a></span>
-		</div>
-	</div> -->
-
-	<navigation-bar>
+	<!-- NAVIGATION BAR AS A DIRECTIVE -->
+	<div ng-include="'/shared/navigation/navbar.html'" ng-controller="UserInfoCtrl"></div>
 	
 
-	<div class="container">
+	<!-- NG-VIEW  -->
 		<div ng-view></div>
-	</div>
+	<!-- FOOTER -->
 
 
 	<!-- BOWER COMPONENTS -->

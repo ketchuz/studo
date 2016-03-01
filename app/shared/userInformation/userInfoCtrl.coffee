@@ -12,7 +12,9 @@ app.controller 'UserInfoCtrl', [ '$scope', 'UserInfo', '$rootScope', ($scope, Us
 
 	$rootScope.$on 'logout-done', ->
 		$scope.profile = null
-		$scope.isAuthenticated = false
+		$scope.isAuthenticated = false		
+		$location.path '/login'
+
 
 
 	$scope.signIn = ->
@@ -20,6 +22,7 @@ app.controller 'UserInfoCtrl', [ '$scope', 'UserInfo', '$rootScope', ($scope, Us
 
 	$scope.logout = ->
 		UserInfo.logout()
+
 
 
 ]

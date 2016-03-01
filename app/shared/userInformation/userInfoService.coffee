@@ -8,6 +8,7 @@ app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', (auth, $ro
 	}
 
 	o.authenticate = (profile, token) ->
+		console.log(profile.name)
 		o.user = profile
 		$rootScope.$broadcast 'login-done'
 		u = auth.authenticate(profile, token)
@@ -32,6 +33,7 @@ app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', (auth, $ro
 		store.remove 'token'
 		o.user = null
 		o.isAuthenticated = false
+		$location.path '/login'
 		$rootScope.$broadcast 'logout-done'
 
 

@@ -6,4 +6,7 @@ app.config [ '$routeProvider', ($routeProvider) ->
 		.when '/',
 			controller: 'HomeCtrl',
 			templateUrl: 'components/home/homeView.html'
+		.when '/login',
+			controller: 'authenticationCtrl',
+			templateUrl: 'shared/authentication/login.html'
 ]

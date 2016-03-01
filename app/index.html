@@ -4,6 +4,17 @@
 	<title>Studo</title>
 </head>
 <body>
+
+	<div ng-controller="UserInfoCtrl">
+		<div ng-show="isAuthenticated">
+			<img ng-src="{{profile.picture}}" alt="">
+			<span> {{profile.name}} </span>|
+			<span><a href="" ng-click="logout()">Logout</a></span>
+		</div>
+		<div ng-hide="isAuthenticated">
+			<span><a href="#/login">Login</a></span>
+		</div>
+	</div>
 	
 
 	<div class="container">
@@ -15,6 +26,11 @@
 	<script src="assets/bower_components/angular/angular.js"></script>
 	<script src='assets/bower_components/angular-route/angular-route.js'></script>
 	<script src="assets/bower_components/angular-animate/angular-animate.js"></script>
+	<script src="assets/bower_components/auth0.js/build/auth0.js"></script>
+	<script src="assets/bower_components/auth0-lock/build/auth0-lock.js"></script>
+	<script src="assets/bower_components/auth0-angular/build/auth0-angular.js"></script>
+	<script src="assets/bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+	<script src="assets/bower_components/angular-jwt/dist/angular-jwt.js"></script>
 
 	<!-- BUILT SCRIPT -->
 	<script src="assets/js/app.js"></script>

@@ -10,7 +10,7 @@ module.exports = function (grunt) {
 				options: {reload: true}
 			},
 			js: {
-				files: ['app/*.coffee', 'app/components/**/*.coffee'],
+				files: ['app/*.coffee', 'app/components/**/*.coffee', 'app/shared/**/*.coffee'],
 				tasks: ['coffee'],
 				options: {livereload: true}
 			},
@@ -20,7 +20,7 @@ module.exports = function (grunt) {
 				options: {livereload: true}
 			},
 			html: {
-				files: ['app/.html', 'app/**/*.html'],
+				files: ['app/.html',  'app/shared/**/*.html', 'app/components/**/*.html'],
 				options: {livereload: true}
 			}
 		},
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
 		coffee: {
 			compile: {
 				files: {
-					'app/assets/js/app.js' : ['app/*.coffee', 'app/components/**/*.coffee']
+					'app/assets/js/app.js' : ['app/*.coffee', 'app/components/**/*.coffee', 'app/shared/**/*.coffee']
 				}
 			}
 		},

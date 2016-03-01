@@ -2,10 +2,12 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Studo</title>
+
+	<link rel="stylesheet" href="assets/css/main.css">
 </head>
 <body>
 
-	<div ng-controller="UserInfoCtrl">
+	<!-- <div ng-controller="UserInfoCtrl">
 		<div ng-show="isAuthenticated">
 			<img ng-src="{{profile.picture}}" alt="">
 			<span> {{profile.name}} </span>|
@@ -14,7 +16,9 @@
 		<div ng-hide="isAuthenticated">
 			<span><a href="#/login">Login</a></span>
 		</div>
-	</div>
+	</div> -->
+
+	<navigation-bar>
 	
 
 	<div class="container">
@@ -31,6 +35,8 @@
 	<script src="assets/bower_components/auth0-angular/build/auth0-angular.js"></script>
 	<script src="assets/bower_components/a0-angular-storage/dist/angular-storage.js"></script>
 	<script src="assets/bower_components/angular-jwt/dist/angular-jwt.js"></script>
+	<script src='assets/bower_components/jquery/dist/jquery.js'></script>
+	<script src="assets/bower_components/bootstrap-sass/assets/javascripts/bootstrap.js"></script>
 
 	<!-- BUILT SCRIPT -->
 	<script src="assets/js/app.js"></script>

@@ -110,6 +110,23 @@
 
   app = angular.module('studo');
 
+  app.directive('navigationBar', [
+    function() {
+      return {
+        restrict: 'E',
+        templateUrl: '/shared/navigation/navbar.html',
+        controler: 'UserInfoCtrl'
+      };
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  var app;
+
+  app = angular.module('studo');
+
   app.controller('UserInfoCtrl', [
     '$scope', 'UserInfo', '$rootScope', function($scope, UserInfo, $rootScope) {
       $scope.isAuthenticated = UserInfo.isAuthenticated;

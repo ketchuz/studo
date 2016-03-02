@@ -120,8 +120,7 @@
         return UserInfo.login();
       };
       return $scope.logout = function() {
-        UserInfo.logout();
-        return console.log('log');
+        return UserInfo.logout();
       };
     }
   ]);
@@ -195,7 +194,7 @@
       };
       o.authenticate = function(profile, token) {
         var u;
-        console.log(profile.name);
+        console.log(profile);
         o.user = profile;
         $rootScope.$broadcast('login-done');
         return u = auth.authenticate(profile, token);

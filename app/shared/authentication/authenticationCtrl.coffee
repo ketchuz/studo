@@ -13,6 +13,5 @@ app.controller 'authenticationCtrl', [ '$scope', '$http', '$location', 'UserInfo
 
 	$scope.logout = ->
 		UserInfo.logout()
-		console.log 'log'
 
 ]

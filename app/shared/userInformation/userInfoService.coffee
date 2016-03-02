@@ -8,7 +8,7 @@ app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', (auth, $ro
 	}
 
 	o.authenticate = (profile, token) ->
-		console.log(profile.name)
+		console.log(profile)
 		o.user = profile
 		$rootScope.$broadcast 'login-done'
 		u = auth.authenticate(profile, token)

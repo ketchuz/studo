@@ -1,1 +1,39 @@
-<h1>{{test}}</h1>
+<section id="home">
+	<div class="container">
+		<div class="row">
+			
+			<!-- Item template -->
+			<div ng-repeat="item in items"
+				class="col-xs-8 col-xs-offset-2 col-sm-4 col-sm-offset-0 col-md-4 col-md-offset-0">
+				<div class="card animated fadeInRight {{item.order}}" align="center">
+					<div class="img-holder">
+						<img ng-src="{{item.img}}" alt="" class="img-responsive">
+					</div>
+					<h3><i class="{{item.icon}}"></i></h3>
+					<h2>{{item.title}}</h2>
+					<p align="justify">{{item.description}}</p>
+
+					<div class="btn-group btn-group-justified">
+						<!-- <button class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Tooltip on top">
+							<i class="fa fa-play-circle"></i>
+						</button>
+						<button href="" class="btn btn-default"><i class="fa fa-check-circle"></i></button>
+						<button href="" class="btn btn-default"><i class="fa fa-plus-circle"></i></button> -->
+						<div class="btn-group">
+							<button tooltip-placement="top" uib-tooltip="Play All" type="button" class="btn btn-default"><i class="fa fa-play-circle"></i></button>
+						</div>
+						
+						<div class="btn-group" role="group">
+						    <button type="button" class="btn btn-default" tooltip-placement="top" uib-tooltip="Improve on those you don't do so good"><i class="fa fa-check-circle"></i></button>
+						</div>
+
+						<div class="btn-group" role="group">
+						    <button type="button" class="btn btn-default" tooltip-placement="top" uib-tooltip="Add a new one"><i class="fa fa-plus-circle"></i></button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End of item template -->
+		</div>
+	</div>
+</section>

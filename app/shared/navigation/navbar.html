@@ -1,4 +1,6 @@
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top"
+ ng-class="(isAuthenticated) ? 'whiteNav' : ''"
+>
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -31,7 +33,11 @@
           <i class="fa fa-heart"></i>Adjectives
         </a>
       </li>
-      <li class='middle'><a href="#" ng-click="logout()">Logout</a></li>
+      <li class='middle'>
+        <a href="#" ng-click="logout()">
+          <i class="fa fa-sign-out"></i>Logout
+        </a>
+      </li>
       <li><a href="#"><img ng-src="{{profile.picture}}" alt="" class="img-responsive img-circle"></a></li>
     </ul>
       <ul ng-hide="isAuthenticated" class="nav navbar-nav navbar-right">

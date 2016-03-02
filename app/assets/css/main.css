@@ -10103,10 +10103,24 @@ button.close {
 .navbar-nav .fa {
   margin-right: 10px; }
 .navbar-nav .middle {
-  margin-top: 15px; }
+  padding-top: 15px;
+  padding-bottom: 15px; }
+  .navbar-nav .middle a {
+    color: white; }
+    .navbar-nav .middle a:hover {
+      color: white; }
+  .navbar-nav .middle:hover {
+    background-color: #DA1D28; }
+    .navbar-nav .middle:hover a {
+      color: white; }
 
 .navbar-default {
   background-color: transparent; }
+  .navbar-default .navbar-nav > li > a:hover {
+    color: white; }
+
+.whiteNav {
+  background-color: white; }
 
 .navbar-brand {
   width: 100%;
@@ -10149,6 +10163,38 @@ button.close {
       color: #E3DE6E;
       text-decoration: none; }
       #login .container a:hover {
-        color: #c5be26; }
+        color: #9a951e; }
+
+#home {
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://images7.alphacoders.com/329/329203.jpg");
+  background-position: center;
+  overflow: hidden;
+  background-size: cover;
+  margin-top: 90px; }
+  #home .img-holder {
+    width: 100%;
+    max-height: 200px;
+    overflow: hidden; }
+    #home .img-holder img {
+      width: 100%;
+      height: 200px; }
+  #home .card {
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 25px; }
+    #home .card button {
+      font-size: 20px;
+      color: #DA1D28; }
+    #home .card h2 {
+      margin-top: 0px; }
+  #home .second {
+    -webkit-animation-delay: 0.2s;
+    animation-delay: 0.2s; }
+  #home .third {
+    -webkit-animation-delay: 0.4s;
+    animation-delay: 0.4s; }
+  #home .container {
+    padding: 100px 0; }
 
 /*# sourceMappingURL=main.css.map */

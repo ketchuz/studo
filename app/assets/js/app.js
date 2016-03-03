@@ -12,10 +12,10 @@
       });
       jwtInterceptorProvider.tokenGetter([
         'store', function(store) {
-          return store.get('token');
+          return config.headers.Authorization = 'Bearer ' + store.get('token');
         }
       ]);
-      return $httpProvider.interceptors.push('jwtInterceptor');
+      return $httpProvider.interceptors.push('authInterceptor');
     }
   ]);
 
@@ -110,6 +110,43 @@
 
   app = angular.module('studo');
 
+  app.controller('VerbsCtrl', [
+    '$scope', '$http', function($scope, $http) {
+      $scope.test = 'HELLO VERBS';
+      return $http({
+        method: 'GET',
+        url: 'http://www.localhost:3000/verbs.json'
+      }).then(function(response) {
+        return console.log(response);
+      }, function(response) {
+        return console.log(response);
+      });
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  var app;
+
+  app = angular.module('studo');
+
+  app.factory('VerbsService', [
+    '$http', function($http) {
+      return $http({
+        method: 'GET',
+        url: 'localhost:3000/verbs.json'
+      });
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  var app;
+
+  app = angular.module('studo');
+
   app.controller('authenticationCtrl', [
     '$scope', '$http', '$location', 'UserInfo', '$rootScope', function($scope, $http, $location, UserInfo, $rootScope) {
       $scope.profile = UserInfo.user;
@@ -128,7 +165,20 @@
 }).call(this);
 
 (function() {
+  var app;
 
+  app = angular.module('studo');
+
+  app.factory('authInterceptor', [
+    '$q', 'store', function($q, store) {
+      return {
+        request: function(config) {
+          config.headers['Authentication-Ketchuz'] = store.get('token');
+          return config || $q.when(config);
+        }
+      };
+    }
+  ]);
 
 }).call(this);
 
@@ -157,7 +207,7 @@
   app = angular.module('studo');
 
   app.controller('UserInfoCtrl', [
-    '$scope', 'UserInfo', '$rootScope', function($scope, UserInfo, $rootScope) {
+    '$scope', 'UserInfo', '$rootScope', '$location', function($scope, UserInfo, $rootScope, $location) {
       $scope.isAuthenticated = UserInfo.isAuthenticated;
       $scope.profile = UserInfo.user;
       $rootScope.$on('login-done', function() {
@@ -186,11 +236,21 @@
   app = angular.module('studo');
 
   app.factory('UserInfo', [
-    'auth', '$rootScope', 'store', '$location', function(auth, $rootScope, store, $location) {
+    'auth', '$rootScope', 'store', '$location', '$http', function(auth, $rootScope, store, $location, $http) {
       var o;
       o = {
         user: auth.profile,
         isAuthenticated: auth.isAuthenticated
+      };
+      o.loginServer = function(profile, token) {
+        return $http({
+          method: 'POST',
+          url: 'http://www.localhost:3000/login'
+        }).then(function(response) {
+          return console.log(response);
+        }, function(response) {
+          return console.log(response);
+        });
       };
       o.authenticate = function(profile, token) {
         var u;
@@ -209,6 +269,7 @@
           store.set('token', token);
           o.user = profile;
           o.isAuthenticated = true;
+          o.loginServer(profile, token);
           $rootScope.$broadcast("login-done");
           return $location.path('/');
         }, function(err) {

@@ -1,11 +1,22 @@
 app = angular.module 'studo'
 
-app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', (auth, $rootScope, store, $location) ->
+app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', '$http', (auth, $rootScope, store, $location, $http) ->
 
 	o = {
 		user: auth.profile,
 		isAuthenticated: auth.isAuthenticated
 	}
+
+	o.loginServer = (profile, token) ->
+		$http
+			method: 'POST'
+			url: 'http://www.localhost:3000/login',
+		.then (response) ->
+			console.log response
+		, (response) ->
+			console.log response
+			
+
 
 	o.authenticate = (profile, token) ->
 		console.log(profile)
@@ -22,6 +33,7 @@ app.factory 'UserInfo', [ 'auth', '$rootScope', 'store', '$location', (auth, $ro
 			store.set 'token', token
 			o.user = profile
 			o.isAuthenticated = true
+			o.loginServer profile, token
 			$rootScope.$broadcast "login-done"
 			$location.path '/'
 		, (err) ->

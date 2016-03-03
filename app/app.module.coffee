@@ -9,10 +9,10 @@ app.config [ 'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorP
 
 	
 	jwtInterceptorProvider.tokenGetter ['store', (store) ->
-		store.get 'token'
+		config.headers.Authorization = 'Bearer ' + store.get 'token'
 	]
 
-	$httpProvider.interceptors.push 'jwtInterceptor'
+	$httpProvider.interceptors.push 'authInterceptor'
 
 
 ]

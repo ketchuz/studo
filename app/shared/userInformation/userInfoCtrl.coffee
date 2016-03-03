@@ -1,6 +1,6 @@
 app = angular.module 'studo'
 
-app.controller 'UserInfoCtrl', [ '$scope', 'UserInfo', '$rootScope', ($scope, UserInfo, $rootScope) ->
+app.controller 'UserInfoCtrl', [ '$scope', 'UserInfo', '$rootScope', '$location', ($scope, UserInfo, $rootScope, $location) ->
 
 	$scope.isAuthenticated = UserInfo.isAuthenticated
 

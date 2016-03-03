@@ -173,7 +173,7 @@
     '$q', 'store', function($q, store) {
       return {
         request: function(config) {
-          config.headers['Authentication-Ketchuz'] = store.get('token');
+          config.headers['Authentication'] = store.get('token');
           return config || $q.when(config);
         }
       };

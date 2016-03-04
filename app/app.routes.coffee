@@ -10,4 +10,8 @@ app.config [ '$routeProvider', ($routeProvider) ->
 		.when '/login',
 			controller: 'authenticationCtrl',
 			templateUrl: 'shared/authentication/login.html'
+		.when '/verbs/all',
+			controller: 'VerbsCtrl'
+			templateUrl: 'components/verbs/all.html'
+			requiresLogin: true
 ]

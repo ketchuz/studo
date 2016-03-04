@@ -30,6 +30,6 @@ app.run [ '$rootScope', 'auth', 'store', 'jwtHelper', '$location', 'UserInfo', (
 				if !auth.isAuthenticated
 					UserInfo.authenticate((store.get 'profile'), token)
 				else
-					$location.path '/'
+					console.log 'change of url'
 
 ]

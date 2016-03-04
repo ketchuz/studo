@@ -35,7 +35,7 @@
             if (!auth.isAuthenticated) {
               return UserInfo.authenticate(store.get('profile'), token);
             } else {
-              return $location.path('/');
+              return console.log('change of url');
             }
           }
         }
@@ -59,6 +59,10 @@
       }).when('/login', {
         controller: 'authenticationCtrl',
         templateUrl: 'shared/authentication/login.html'
+      }).when('/verbs/all', {
+        controller: 'VerbsCtrl',
+        templateUrl: 'components/verbs/all.html',
+        requiresLogin: true
       });
     }
   ]);
@@ -113,11 +117,13 @@
   app.controller('VerbsCtrl', [
     '$scope', '$http', function($scope, $http) {
       $scope.test = 'HELLO VERBS';
+      $scope.verbs = [];
       return $http({
         method: 'GET',
         url: 'http://www.localhost:3000/verbs.json'
       }).then(function(response) {
-        return console.log(response);
+        console.log(response);
+        return $scope.verbs = response.data;
       }, function(response) {
         return console.log(response);
       });

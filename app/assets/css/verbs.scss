@@ -1,0 +1,16 @@
+// VERBS SECTION
+#verbs-all {
+	width: 100%;
+	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("http://www.freedownwallpaper.com/wp-content/uploads/2015/12/cool-photography-backgrounds-photography-pier-after-the-storm-2560x1440-cool-pc-wallpaper-2000x1125.jpg");
+	background-position: center;
+	overflow: hidden;
+	background-size: cover;
+	margin-top: 90px;
+	padding: 50px;
+	height: 100%;
+
+	.holder {
+		width: 100%;
+		background-color: red;
+	}
+}

@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap']);
+  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']);
 
   app.config([
     'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function(authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) {
@@ -120,10 +120,43 @@
 
   app = angular.module('studo');
 
+  app.directive('quizVerbDirective', [
+    '$animate', '$compile', function($animate, $compile) {
+      var watchers;
+      watchers = {};
+      return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+          watchers[scope.$id] && watchers[scope.$id]();
+          return watchers[scope.$id] = scope.$watch(attrs.quizVerbDirective, function(newValue, oldValue) {
+            if (newValue !== oldValue) {
+              $animate.enter($compile(element.clone())(scope), element.parent(), element);
+              element.html(oldValue);
+              return $animate.leave(element);
+            }
+          });
+        }
+      };
+    }
+  ]);
+
+}).call(this);
+
+(function() {
+  var app;
+
+  app = angular.module('studo');
+
   app.controller('VerbsCtrl', [
     '$scope', '$http', function($scope, $http) {
-      $scope.test = 'HELLO VERBS';
-      $scope.verbs = [];
+      var index;
+      $scope.headline = 'Some text';
+      $scope.list = ['One', 'Two', 'tree'];
+      index = 0;
+      $scope.changeHeadline = function() {
+        $scope.headline = $scope.list[index];
+        return index++;
+      };
       return $http({
         method: 'GET',
         url: 'http://www.localhost:3000/verbs.json'

@@ -2,19 +2,18 @@ app = angular.module 'studo'
 
 app.controller 'VerbsCtrl', [ '$scope', '$http', ($scope, $http) ->
 
-	$scope.headline = 'Some text'
-
 	$scope.list = [
-		'One'
-		'Two'
-		'tree'
+		'one',
+		'two',
+		'three'
 	]
 
 	index = 0
+	$scope.name = $scope.list[0]
+	$scope.headline = '<h1>'+$scope.name+'</h1>'
 
 	$scope.changeHeadline = ->
-		$scope.headline = $scope.list[index]
-		index++
+		$scope.name = $scope.list[++index]
 
 	$http
 		method: 'GET'

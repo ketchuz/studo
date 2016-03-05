@@ -61,7 +61,7 @@
         templateUrl: 'shared/authentication/login.html'
       }).when('/verbs/all', {
         controller: 'VerbsCtrl',
-        templateUrl: 'components/verbs/all.html',
+        templateUrl: 'components/verbs/verbsAll.html',
         requiresLogin: true
       });
     }
@@ -127,6 +127,7 @@
       return {
         restrict: 'A',
         link: function(scope, element, attrs) {
+          console.log(watchers);
           watchers[scope.$id] && watchers[scope.$id]();
           return watchers[scope.$id] = scope.$watch(attrs.quizVerbDirective, function(newValue, oldValue) {
             if (newValue !== oldValue) {
@@ -150,12 +151,12 @@
   app.controller('VerbsCtrl', [
     '$scope', '$http', function($scope, $http) {
       var index;
-      $scope.headline = 'Some text';
-      $scope.list = ['One', 'Two', 'tree'];
+      $scope.list = ['one', 'two', 'three'];
       index = 0;
+      $scope.name = $scope.list[0];
+      $scope.headline = '<h1>' + $scope.name + '</h1>';
       $scope.changeHeadline = function() {
-        $scope.headline = $scope.list[index];
-        return index++;
+        return $scope.name = $scope.list[++index];
       };
       return $http({
         method: 'GET',

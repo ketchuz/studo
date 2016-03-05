@@ -14,7 +14,37 @@
 		background-color: red;
 	}
 
-	.flash {
-		// position: absolute;
+	.jumbotron {
+		min-height: 200px;
+		margin-top: 100px;
 	}
+
+	.container-view {
+		position: relative;
+	}
+
+	.view {
+		
+	}
+
+	.next {
+		bottom: 20px;
+		right: 20px;
+		float: right;
+	}
+
+
+	.slide-and-fade-up {
+	  &.ng-enter {
+	  	margin-top: -20px;
+	    -webkit-animation-name: fadeInRight; /* Chrome, Safari, Opera */
+	    animation-name: fadeInRight;
+	  }
+	  &.ng-leave {
+	    -webkit-animation-name: fadeOutLeft; /* Chrome, Safari, Opera */
+	    animation-name: fadeOutLeft;
+	  }
+	}
+
+
 }

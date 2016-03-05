@@ -1,0 +1,38 @@
+<section id="verbs-all">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="jumbotron animated fadeIn">
+					<div class="flash" ng-hide="alertShow">
+						<h3>All for All</h3>
+						<p>In this section you'll play all the verbs available 
+						in the system. Good luck!
+						<br>
+						<button ng-click="alertShow = !alertShow" class="btn btn-primary pull-right">Play</button></p>
+						<div class="clearfix"></div>
+					</div>
+					<div ng-show="alertShow" class="container container-view">
+						<h2>To be</h2>
+
+						<form>
+						  <div class="form-group">
+						    <input type="text" class="form-control" placeholder="Answer">
+						  </div>
+						</form>
+						
+						<button ng-hide="evaluate" class="btn btn-primary pull-right" ng-click="evaluateQuestion(); evaluate = !evaluate">Evaluate</button>
+						<button ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion(); evaluate = !evaluate">Next</button>
+						
+						<div class="clearfix"></div>
+
+						<div class="result" ng-show="evaluate">
+							<h4>Congrats! You have it right!</h4>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+</section>

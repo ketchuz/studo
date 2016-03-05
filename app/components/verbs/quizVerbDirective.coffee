@@ -3,10 +3,10 @@ app = angular.module 'studo'
 app.directive 'quizVerbDirective', [ '$animate', '$compile', ($animate, $compile) ->
 
 	watchers = {}
-
 	restrict: 'A'
 	link: (scope, element, attrs) ->
-		watchers[scope.$id] && watchers[scope.$id]()
+		console.log watchers
+		watchers[scope.$id] && watchers[scope.$id]();
 
 		watchers[scope.$id] = scope.$watch attrs.quizVerbDirective, (newValue, oldValue) ->
 			if newValue != oldValue

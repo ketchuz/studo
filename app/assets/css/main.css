@@ -10109,6 +10109,24 @@ button.close {
   #verbs-all .holder {
     width: 100%;
     background-color: red; }
+  #verbs-all .jumbotron {
+    min-height: 200px;
+    margin-top: 100px; }
+  #verbs-all .container-view {
+    position: relative; }
+  #verbs-all .next {
+    bottom: 20px;
+    right: 20px;
+    float: right; }
+  #verbs-all .slide-and-fade-up.ng-enter {
+    margin-top: -20px;
+    -webkit-animation-name: fadeInRight;
+    /* Chrome, Safari, Opera */
+    animation-name: fadeInRight; }
+  #verbs-all .slide-and-fade-up.ng-leave {
+    -webkit-animation-name: fadeOutLeft;
+    /* Chrome, Safari, Opera */
+    animation-name: fadeOutLeft; }
 
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {

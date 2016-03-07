@@ -1,9 +1,19 @@
 app = angular.module 'studo'
 
-app.factory 'VerbsService', ['$http', ($http) ->
+app.factory 'VerbsService', ['$http', '$resource', 'serverURL', ($http, $resource, serverURL) ->
 
-	$http
-		method: 'GET'
-		url: 'localhost:3000/verbs.json'
+	o = {
 
+	}
+
+	o.service = ->
+		$resource(serverURL + 'verbs/:id', {id: '@id'},{
+			'create': method: 'POST'
+			'index': method: 'GET', isArray: true
+	})
+
+	o.getAll = ->
+		o.service().index()
+
+	o
 ]

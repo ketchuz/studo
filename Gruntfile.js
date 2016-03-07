@@ -37,6 +37,9 @@ module.exports = function (grunt) {
 		// sass
 		sass: {
 			dist: {
+				options: {
+					update: true
+				},
 				files: {
 					'app/assets/css/main.css' : 'app/assets/css/main.scss'
 				}

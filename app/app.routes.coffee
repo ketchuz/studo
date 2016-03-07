@@ -14,4 +14,12 @@ app.config [ '$routeProvider', ($routeProvider) ->
 			controller: 'VerbsCtrl'
 			templateUrl: 'components/verbs/verbsAll.html'
 			requiresLogin: true
+			resolve:
+				postPromise: ['VerbsService', (VerbsService) ->
+					VerbsService.service().index()
+				]
+		.when '/verbs/new',
+			controller: 'VerbsCtrl'
+			templateUrl: 'components/verbs/verbsNew.html'
+			requiresLogin: true
 ]

@@ -1,4 +1,4 @@
-app = angular.module 'studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']
+app = angular.module 'studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']
 
 app.config [ 'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorProvider', (authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) ->
 	
@@ -33,3 +33,5 @@ app.run [ '$rootScope', 'auth', 'store', 'jwtHelper', '$location', 'UserInfo', (
 					console.log 'change of url'
 
 ]
+
+app.value 'serverURL', 'http://localhost:3000/'

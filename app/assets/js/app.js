@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']);
+  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']);
 
   app.config([
     'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function(authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) {
@@ -43,6 +43,8 @@
     }
   ]);
 
+  app.value('serverURL', 'http://localhost:3000/');
+
 }).call(this);
 
 (function() {
@@ -62,6 +64,17 @@
       }).when('/verbs/all', {
         controller: 'VerbsCtrl',
         templateUrl: 'components/verbs/verbsAll.html',
+        requiresLogin: true,
+        resolve: {
+          postPromise: [
+            'VerbsService', function(VerbsService) {
+              return VerbsService.service().index();
+            }
+          ]
+        }
+      }).when('/verbs/new', {
+        controller: 'VerbsCtrl',
+        templateUrl: 'components/verbs/verbsNew.html',
         requiresLogin: true
       });
     }
@@ -85,6 +98,9 @@
       });
       $scope.GoToAll = function(section) {
         return $location.path('/' + section + '/all');
+      };
+      $scope.GoToNew = function(section) {
+        return $location.path('/' + section + '/new');
       };
       return $scope.items = [
         {
@@ -149,24 +165,8 @@
   app = angular.module('studo');
 
   app.controller('VerbsCtrl', [
-    '$scope', '$http', function($scope, $http) {
-      var index;
-      $scope.list = ['one', 'two', 'three'];
-      index = 0;
-      $scope.name = $scope.list[0];
-      $scope.headline = '<h1>' + $scope.name + '</h1>';
-      $scope.changeHeadline = function() {
-        return $scope.name = $scope.list[++index];
-      };
-      return $http({
-        method: 'GET',
-        url: 'http://www.localhost:3000/verbs.json'
-      }).then(function(response) {
-        console.log(response);
-        return $scope.verbs = response.data;
-      }, function(response) {
-        return console.log(response);
-      });
+    '$scope', '$http', 'VerbsService', function($scope, $http, VerbsService) {
+      return $scope.verbs = VerbsService.getAll();
     }
   ]);
 
@@ -178,11 +178,26 @@
   app = angular.module('studo');
 
   app.factory('VerbsService', [
-    '$http', function($http) {
-      return $http({
-        method: 'GET',
-        url: 'localhost:3000/verbs.json'
-      });
+    '$http', '$resource', 'serverURL', function($http, $resource, serverURL) {
+      var o;
+      o = {};
+      o.service = function() {
+        return $resource(serverURL + 'verbs/:id', {
+          id: '@id'
+        }, {
+          'create': {
+            method: 'POST'
+          },
+          'index': {
+            method: 'GET',
+            isArray: true
+          }
+        });
+      };
+      o.getAll = function() {
+        return o.service().index();
+      };
+      return o;
     }
   ]);
 

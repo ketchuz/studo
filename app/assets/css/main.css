@@ -10097,7 +10097,7 @@ button.close {
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp; }
 
-#verbs-all {
+#verbs-all, #verbs-new {
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("http://www.freedownwallpaper.com/wp-content/uploads/2015/12/cool-photography-backgrounds-photography-pier-after-the-storm-2560x1440-cool-pc-wallpaper-2000x1125.jpg");
   background-position: center;
@@ -10106,24 +10106,26 @@ button.close {
   margin-top: 90px;
   padding: 50px;
   height: 100%; }
-  #verbs-all .holder {
+  #verbs-all .holder, #verbs-new .holder {
     width: 100%;
     background-color: red; }
-  #verbs-all .jumbotron {
+  #verbs-all .jumbotron, #verbs-new .jumbotron {
     min-height: 200px;
     margin-top: 100px; }
-  #verbs-all .container-view {
+  #verbs-all .container-view, #verbs-new .container-view {
     position: relative; }
-  #verbs-all .next {
+  #verbs-all h1, #verbs-new h1 {
+    background-color: red; }
+  #verbs-all .next, #verbs-new .next {
     bottom: 20px;
     right: 20px;
     float: right; }
-  #verbs-all .slide-and-fade-up.ng-enter {
+  #verbs-all .slide-and-fade-up.ng-enter, #verbs-new .slide-and-fade-up.ng-enter {
     margin-top: -20px;
     -webkit-animation-name: fadeInRight;
     /* Chrome, Safari, Opera */
     animation-name: fadeInRight; }
-  #verbs-all .slide-and-fade-up.ng-leave {
+  #verbs-all .slide-and-fade-up.ng-leave, #verbs-new .slide-and-fade-up.ng-leave {
     -webkit-animation-name: fadeOutLeft;
     /* Chrome, Safari, Opera */
     animation-name: fadeOutLeft; }
@@ -10133,6 +10135,8 @@ button.close {
     margin-left: 25px; } }
 .navbar-nav .fa {
   margin-right: 10px; }
+.navbar-nav li.open {
+  background-color: #DA1D28; }
 .navbar-nav .middle {
   padding-top: 15px;
   padding-bottom: 15px; }
@@ -10144,10 +10148,15 @@ button.close {
     background-color: #DA1D28; }
     .navbar-nav .middle:hover a {
       color: white; }
+.navbar-nav .dropdown-menu .subItem {
+  color: black; }
 
 .navbar-default {
   background-color: transparent; }
   .navbar-default .navbar-nav > li > a:hover {
+    color: white; }
+  .navbar-default .navbar-nav > .open > a:focus {
+    background-color: #DA1D28;
     color: white; }
 
 .whiteNav {

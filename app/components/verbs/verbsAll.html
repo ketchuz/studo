@@ -19,17 +19,17 @@
 									<input type="text" class="form-control" placeholder="Answer">
 								</div>
 							</form>
-							
+
 							<button ng-hide="evaluate" class="btn btn-primary pull-right" ng-click="evaluateQuestion(); evaluate = !evaluate">Evaluate</button>
 							<button ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion(); evaluate = !evaluate">Next</button>
-							
+
 							<div class="clearfix"></div>
 
 							<div class="result" ng-show="evaluate">
 								<h4>Congrats! You have it right!</h4>
 							</div>
 						</div>
-						
+
 					</div>
 				</div>
 
@@ -38,7 +38,7 @@
 			<div class="row">
 				<div class="jumbotron">
 					<div ng-repeat="verb in verbs">
-						{{verb}}
+						{{verb.name}}
 					</div>
 				</div>
 			</div>

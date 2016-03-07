@@ -166,7 +166,18 @@
 
   app.controller('VerbsCtrl', [
     '$scope', '$http', 'VerbsService', function($scope, $http, VerbsService) {
-      return $scope.verbs = VerbsService.getAll();
+      $scope.verbs = VerbsService.getAll();
+      $scope.verb;
+      return $scope.createVerb = function(verb) {
+        verb = {
+          'verb': {
+            'german': verb.german,
+            'english': verb.english,
+            'spanish': verb.spanish
+          }
+        };
+        return VerbsService.service().create(verb);
+      };
     }
   ]);
 

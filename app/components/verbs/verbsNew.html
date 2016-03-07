@@ -5,23 +5,27 @@
 				<div class="jumbotron animated fadeInUp">
 					<h3 align="center">Create a New Verb</h3>
 
-					<form>
+					<form name="verbForm" ng-submit="submitForm(verb)" novalidate>
 						<div class="form-group">
 							<label for="germanVerb">German Verb</label>
-							<input type="text" placeholder="Ex. Sein" class="form-control" ng-model='verb.german'>
+							<input type="text" name="german" placeholder="Ex. Sein" class="form-control" ng-model='verb.german' required>
+							<p ng-show="verbForm.german.$invalid && !userForm.german.$pristine" class="help-block">The German verb is required.</p>
 						</div>
 						<div class="form-group">
 							<label for="germanVerb">English Verb</label>
-							<input type="text" placeholder="Ex. To be" class="form-control" ng-model='verb.english'>
+							<input type="text" name="english" placeholder="Ex. To be" class="form-control" ng-model='verb.english' required>
+							<p ng-show="verbForm.english.$invalid && !userForm.english.$pristine" class="help-block">The English verb is required.</p>
 						</div>
 						<div class="form-group">
 							<label for="germanVerb">Spanish Verb</label>
-							<input type="text" placeholder="Ex. Ser / estar" class="form-control" ng-model='verb.spanish'>
+							<input type="text" name="spanish" placeholder="Ex. Ser / estar" class="form-control" ng-model='verb.spanish' required>
+							<p ng-show="verbForm.spanish.$invalid && !userForm.spanish.$pristine" class="help-block">The Spanish verb is required.</p>
 						</div>
 						
 						<div class="pull-right">
 							<a href="#/" type="button" class="btn btn-default">Cancel</a>
-							<button type="button" ng-click="createVerb(verb)" class="btn btn-primary">Create</button>
+							<button ng-disabled="verbForm.$invalid"
+							type="submit" class="btn btn-primary">Create</button>
 						</div>
 
 

@@ -165,22 +165,34 @@
   app = angular.module('studo');
 
   app.controller('VerbsCtrl', [
-    '$scope', '$http', 'VerbsService', function($scope, $http, VerbsService) {
+    '$scope', '$http', 'VerbsService', '$location', function($scope, $http, VerbsService, $location) {
       $scope.verbs = VerbsService.getAll();
       $scope.verb;
-      return $scope.createVerb = function(verb) {
-        verb = {
-          'Verb': {
+      $scope.createVerb = function(verb) {
+        return verb = {
+          'verb': {
             'german': verb.german,
             'english': verb.english,
             'spanish': verb.spanish
           }
         };
-        return VerbsService.service().create(verb, function() {
-          return console.log('Created');
-        }, function(error) {
-          return console.log(error);
-        });
+      };
+      return $scope.submitForm = function(verb) {
+        if ($scope.verbForm.$valid) {
+          verb = {
+            'verb': {
+              'german': verb.german,
+              'english': verb.english,
+              'spanish': verb.spanish
+            }
+          };
+          return VerbsService.service().create(verb, function() {
+            alert('Verb successfully created!');
+            return $location.path('/');
+          }, function(error) {
+            return console.log(error);
+          });
+        }
       };
     }
   ]);

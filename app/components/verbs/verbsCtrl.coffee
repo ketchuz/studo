@@ -1,6 +1,6 @@
 app = angular.module 'studo'
 
-app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', ($scope, $http, VerbsService) ->
+app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', ($scope, $http, VerbsService, $location) ->
 
 	# VERBS INDEX / PLAY ALL
 	$scope.verbs = VerbsService.getAll()
@@ -10,16 +10,25 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', ($scope, $http,
 	# VERBS CREATE
 	$scope.createVerb = (verb) ->
 		verb = 
-			'Verb':
+			'verb':
 				'german': verb.german
 				'english': verb.english
 				'spanish': verb.spanish
 
-		VerbsService.service().create verb, 
-			() ->
-				console.log 'Created'
-			(error) ->
-				console.log error
+	$scope.submitForm = (verb) ->
+		if $scope.verbForm.$valid
+			verb = 
+				'verb':
+					'german': verb.german
+					'english': verb.english
+					'spanish': verb.spanish
+
+			VerbsService.service().create verb, 
+				() ->
+					alert('Verb successfully created!')
+					$location.path '/'
+				(error) ->
+					console.log error
 
 	
 

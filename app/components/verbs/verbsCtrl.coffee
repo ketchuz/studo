@@ -10,12 +10,16 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', ($scope, $http,
 	# VERBS CREATE
 	$scope.createVerb = (verb) ->
 		verb = 
-			'verb':
+			'Verb':
 				'german': verb.german
 				'english': verb.english
 				'spanish': verb.spanish
 
-		VerbsService.service().create(verb)
+		VerbsService.service().create verb, 
+			() ->
+				console.log 'Created'
+			(error) ->
+				console.log error
 
 	
 

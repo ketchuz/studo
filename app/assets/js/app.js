@@ -170,13 +170,17 @@
       $scope.verb;
       return $scope.createVerb = function(verb) {
         verb = {
-          'verb': {
+          'Verb': {
             'german': verb.german,
             'english': verb.english,
             'spanish': verb.spanish
           }
         };
-        return VerbsService.service().create(verb);
+        return VerbsService.service().create(verb, function() {
+          return console.log('Created');
+        }, function(error) {
+          return console.log(error);
+        });
       };
     }
   ]);

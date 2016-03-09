@@ -1,12 +1,12 @@
 // VERBS SECTION
 #verbs-all, #verbs-new {
 	width: 100%;
-	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("http://www.freedownwallpaper.com/wp-content/uploads/2015/12/cool-photography-backgrounds-photography-pier-after-the-storm-2560x1440-cool-pc-wallpaper-2000x1125.jpg");
+	background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("/assets/img/bg01.jpg");
 	background-position: center;
 	overflow: hidden;
 	background-size: cover;
 	margin-top: 90px;
-	padding: 50px;
+	padding: 25px;
 	height: 100%;
 
 	.holder {
@@ -16,7 +16,7 @@
 
 	.jumbotron {
 		min-height: 200px;
-		margin-top: 100px;
+		margin-top: 50px;
 	}
 
 	.container-view {

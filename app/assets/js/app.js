@@ -68,7 +68,7 @@
         resolve: {
           postPromise: [
             'VerbsService', function(VerbsService) {
-              return VerbsService.service().index();
+              return VerbsService.service().ten_random();
             }
           ]
         }
@@ -165,9 +165,11 @@
   app = angular.module('studo');
 
   app.controller('VerbsCtrl', [
-    '$scope', '$http', 'VerbsService', '$location', function($scope, $http, VerbsService, $location) {
-      $scope.verbs = VerbsService.getAll();
-      $scope.verb;
+    '$scope', '$http', 'VerbsService', '$location', '$filter', function($scope, $http, VerbsService, $location, $filter) {
+      var results;
+      $scope.verbs = VerbsService.getTen();
+      $scope.isCorrect = false;
+      results = [];
       $scope.createVerb = function(verb) {
         return verb = {
           'verb': {
@@ -177,13 +179,48 @@
           }
         };
       };
+      $scope.startAll = function() {
+        $scope.answer = '';
+        return $scope.verb = $scope.verbs[0];
+      };
+      $scope.evaluateQuestion = function(verb, answer) {
+        if (answer === null) {
+          $scope.isCorrect = false;
+          return results.push({
+            'verbId': verb.id,
+            'isCorrect': $scope.isCorrect
+          });
+        }
+        $scope.isCorrect = verb.german.toLowerCase() === answer.toLowerCase() ? true : false;
+        return results.push({
+          'verbId': verb.id,
+          'isCorrect': $scope.isCorrect
+        });
+      };
+      $scope.nextQuestion = function() {
+        var anotherVerbsCall;
+        console.log($scope.verbs.length);
+        if ($scope.verbs.length > 1) {
+          $scope.verbs.splice(0, 1);
+        } else {
+          $scope.verbs.splice(0, 1);
+          console.log(results);
+          anotherVerbsCall = VerbsService.getTen();
+          anotherVerbsCall.$promise.then(function(data) {
+            $scope.verbs = data;
+            return $scope.verb = $scope.verbs[0];
+          });
+        }
+        $scope.answer = '';
+        return $scope.verb = $scope.verbs[0];
+      };
       return $scope.submitForm = function(verb) {
         if ($scope.verbForm.$valid) {
           verb = {
             'verb': {
-              'german': verb.german,
-              'english': verb.english,
-              'spanish': verb.spanish
+              'german': $filter('lowercase')(verb.german),
+              'english': $filter('lowercase')(verb.english),
+              'spanish': $filter('lowercase')(verb.spanish)
             }
           };
           return VerbsService.service().create(verb, function() {
@@ -218,11 +255,19 @@
           'index': {
             method: 'GET',
             isArray: true
+          },
+          'ten_random': {
+            method: 'GET',
+            isArray: true,
+            url: serverURL + 'verbs/ten_random'
           }
         });
       };
       o.getAll = function() {
         return o.service().index();
+      };
+      o.getTen = function() {
+        return o.service().ten_random();
       };
       return o;
     }

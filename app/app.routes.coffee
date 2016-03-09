@@ -16,7 +16,7 @@ app.config [ '$routeProvider', ($routeProvider) ->
 			requiresLogin: true
 			resolve:
 				postPromise: ['VerbsService', (VerbsService) ->
-					VerbsService.service().index()
+					VerbsService.service().ten_random()
 				]
 		.when '/verbs/new',
 			controller: 'VerbsCtrl'

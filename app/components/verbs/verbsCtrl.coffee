@@ -16,13 +16,16 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 				'english': verb.english
 				'spanish': verb.spanish
 
+
 	$scope.startAll = ->
 		$scope.answer = ''
 		$scope.verb = $scope.verbs[0]
 
 	$scope.evaluateQuestion = (verb, answer) ->
+
 		if answer == null
 			$scope.isCorrect = no
+			scope.evaluate = !$scope.evaluate
 			return results.push
 				'verbId': verb.id
 				'isCorrect': $scope.isCorrect
@@ -31,10 +34,12 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 		results.push
 			'verbId': verb.id
 			'isCorrect': $scope.isCorrect
+		$scope.evaluate = !$scope.evaluate
 
 	
 	# MOVE TO NEXT QUESTION
 	$scope.nextQuestion = () ->
+
 		console.log $scope.verbs.length
 		if $scope.verbs.length > 1
 			$scope.verbs.splice(0, 1);
@@ -42,6 +47,9 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 		# TO GET MORE VERBS
 		else
 			$scope.verbs.splice(0, 1);
+			console.log results
+			VerbsService.registerScore(results)
+			results = []
 			console.log results
 			anotherVerbsCall = VerbsService.getTen()
 			anotherVerbsCall.$promise.then (data) ->
@@ -51,6 +59,7 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 			  
 		$scope.answer = ''
 		$scope.verb = $scope.verbs[0]
+		$scope.evaluate = !$scope.evaluate
 
 
 	$scope.submitForm = (verb) ->

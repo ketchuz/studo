@@ -12,38 +12,35 @@
 							<div class="clearfix"></div>
 						</div>
 						<div ng-show="alertShow" class="container container-view">
-							<h2>{{verb.english}}</h2>
+							<h2>{{verb.english | capitalize:'first' }}</h2>
 
-							<form>
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Answer" ng-model='answer'>
+							<form >
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="Answer" ng-disabled="evaluate" ng-model='answer' autofocus="true">
+									<span class="input-group-btn">
+										<button ng-hide="evaluate" class="btn btn-primary pull-right" ng-click="evaluateQuestion(verb, answer)"
+										ng-keydown="$event.which === 13 && evaluateQuestion(verb, answer)">Evaluate</button>
+										<button autofocus ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion()"
+										ng-keydown="$event.which === 13 && nextQuestion()">Next</button>
+									</span>
 								</div>
 							</form>
-
+<!-- 
 							<button ng-hide="evaluate" class="btn btn-primary pull-right" ng-click="evaluateQuestion(verb, answer); evaluate = !evaluate">Evaluate</button>
-							<button autofocus ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion(); evaluate = !evaluate">Next</button>
+							<button autofocus ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion(); evaluate = !evaluate">Next</button> -->
 
 							<div class="clearfix"></div>
 
-							<div class="result" ng-show="evaluate">
-								<h4 ng-show="isCorrect">Congrats! You have it right!</h4>
-								<h4 ng-hide="isCorrect">Wrong! Nice try.</h4>
-								<h5>The answer is {{verb.german}}</h5>
+							<div class="result" ng-show="evaluate" ng-class="{correct: isCorrect, incorrect: !isCorrect}">
+								<p>The answer is <strong>{{verb.german}}</strong></p>
+								<p ng-show="isCorrect">Correct! You have it right!</p>
+								<p ng-hide="isCorrect">Nice try.</p>
 							</div>
 						</div>
 
 					</div>
 				</div>
 
-			</div>
-			<div class="row">
-				<div class="jumbotron">
-					<ul>
-						<li ng-repeat="verb in verbs">
-							{{verb.german}}
-						</li>
-					</ul>
-				</div>
 			</div>
 		</div>
 	</section>

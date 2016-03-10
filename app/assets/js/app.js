@@ -1,7 +1,7 @@
 (function() {
   var app;
 
-  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']);
+  app = angular.module('studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize', 'puigcerber.capitalize']);
 
   app.config([
     'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorProvider', function(authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) {
@@ -186,16 +186,18 @@
       $scope.evaluateQuestion = function(verb, answer) {
         if (answer === null) {
           $scope.isCorrect = false;
+          scope.evaluate = !$scope.evaluate;
           return results.push({
             'verbId': verb.id,
             'isCorrect': $scope.isCorrect
           });
         }
         $scope.isCorrect = verb.german.toLowerCase() === answer.toLowerCase() ? true : false;
-        return results.push({
+        results.push({
           'verbId': verb.id,
           'isCorrect': $scope.isCorrect
         });
+        return $scope.evaluate = !$scope.evaluate;
       };
       $scope.nextQuestion = function() {
         var anotherVerbsCall;
@@ -205,6 +207,9 @@
         } else {
           $scope.verbs.splice(0, 1);
           console.log(results);
+          VerbsService.registerScore(results);
+          results = [];
+          console.log(results);
           anotherVerbsCall = VerbsService.getTen();
           anotherVerbsCall.$promise.then(function(data) {
             $scope.verbs = data;
@@ -212,7 +217,8 @@
           });
         }
         $scope.answer = '';
-        return $scope.verb = $scope.verbs[0];
+        $scope.verb = $scope.verbs[0];
+        return $scope.evaluate = !$scope.evaluate;
       };
       return $scope.submitForm = function(verb) {
         if ($scope.verbForm.$valid) {
@@ -260,6 +266,10 @@
             method: 'GET',
             isArray: true,
             url: serverURL + 'verbs/ten_random'
+          },
+          'register_score': {
+            method: 'POST',
+            url: serverURL + 'verbs/register_score'
           }
         });
       };
@@ -268,6 +278,11 @@
       };
       o.getTen = function() {
         return o.service().ten_random();
+      };
+      o.registerScore = function(scores) {
+        return o.service().register_score({
+          scores: scores
+        });
       };
       return o;
     }

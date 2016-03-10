@@ -11,6 +11,7 @@ app.factory 'VerbsService', ['$http', '$resource', 'serverURL', ($http, $resourc
 			'create': method: 'POST'
 			'index': method: 'GET', isArray: true
 			'ten_random' : method: 'GET', isArray: true, url: serverURL + 'verbs/ten_random'
+			'register_score' : method: 'POST', url: serverURL + 'verbs/register_score'
 	})
 
 	o.getAll = ->
@@ -19,5 +20,7 @@ app.factory 'VerbsService', ['$http', '$resource', 'serverURL', ($http, $resourc
 	o.getTen = ->
 		o.service().ten_random()
 
+	o.registerScore = (scores) ->
+		o.service().register_score({scores: scores})
 	o
 ]

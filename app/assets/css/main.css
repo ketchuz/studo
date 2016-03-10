@@ -10129,6 +10129,26 @@ button.close {
     -webkit-animation-name: fadeOutLeft;
     /* Chrome, Safari, Opera */
     animation-name: fadeOutLeft; }
+  #verbs-all .result, #verbs-new .result {
+    -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 1px;
+    border-radius: 5px;
+    -khtml-border-radius: 10px;
+    -webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 1px 2px 3px rgba(53, 53, 53, 0.5);
+    padding: 20px;
+    color: white;
+    margin: 20px 0; }
+    #verbs-all .result p:first-child, #verbs-new .result p:first-child {
+      font-size: 20px;
+      margin-bottom: 0px; }
+    #verbs-all .result p, #verbs-new .result p {
+      font-size: 14px; }
+  #verbs-all .correct, #verbs-new .correct {
+    background-color: #6CCC9B; }
+  #verbs-all .incorrect, #verbs-new .incorrect {
+    background-color: #CC655C; }
 
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {

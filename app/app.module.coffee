@@ -1,4 +1,4 @@
-app = angular.module 'studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize']
+app = angular.module 'studo', ['ngRoute', 'ngAnimate', 'auth0', 'angular-storage', 'ngResource', 'angular-jwt', 'ui.bootstrap', 'ngSanitize', 'puigcerber.capitalize']
 
 app.config [ 'authProvider', '$routeProvider', '$httpProvider', 'jwtInterceptorProvider', (authProvider, $routeProvider, $httpProvider, jwtInterceptorProvider) ->
 	

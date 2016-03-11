@@ -10097,7 +10097,7 @@ button.close {
   -webkit-animation-name: slideOutUp;
   animation-name: slideOutUp; }
 
-#verbs-all, #verbs-new {
+#verbs-all, #verbs-new, #verbs-improve {
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/img/bg01.jpg");
   background-position: center;
@@ -10106,30 +10106,30 @@ button.close {
   margin-top: 90px;
   padding: 25px;
   height: 100%; }
-  #verbs-all .holder, #verbs-new .holder {
+  #verbs-all .holder, #verbs-new .holder, #verbs-improve .holder {
     width: 100%;
     background-color: red; }
-  #verbs-all .jumbotron, #verbs-new .jumbotron {
+  #verbs-all .jumbotron, #verbs-new .jumbotron, #verbs-improve .jumbotron {
     min-height: 200px;
     margin-top: 50px; }
-  #verbs-all .container-view, #verbs-new .container-view {
+  #verbs-all .container-view, #verbs-new .container-view, #verbs-improve .container-view {
     position: relative; }
-  #verbs-all h1, #verbs-new h1 {
+  #verbs-all h1, #verbs-new h1, #verbs-improve h1 {
     background-color: red; }
-  #verbs-all .next, #verbs-new .next {
+  #verbs-all .next, #verbs-new .next, #verbs-improve .next {
     bottom: 20px;
     right: 20px;
     float: right; }
-  #verbs-all .slide-and-fade-up.ng-enter, #verbs-new .slide-and-fade-up.ng-enter {
+  #verbs-all .slide-and-fade-up.ng-enter, #verbs-new .slide-and-fade-up.ng-enter, #verbs-improve .slide-and-fade-up.ng-enter {
     margin-top: -20px;
     -webkit-animation-name: fadeInRight;
     /* Chrome, Safari, Opera */
     animation-name: fadeInRight; }
-  #verbs-all .slide-and-fade-up.ng-leave, #verbs-new .slide-and-fade-up.ng-leave {
+  #verbs-all .slide-and-fade-up.ng-leave, #verbs-new .slide-and-fade-up.ng-leave, #verbs-improve .slide-and-fade-up.ng-leave {
     -webkit-animation-name: fadeOutLeft;
     /* Chrome, Safari, Opera */
     animation-name: fadeOutLeft; }
-  #verbs-all .result, #verbs-new .result {
+  #verbs-all .result, #verbs-new .result, #verbs-improve .result {
     -moz-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.5);
     -moz-border-radius: 10px;
     -webkit-border-radius: 1px;
@@ -10140,14 +10140,14 @@ button.close {
     padding: 20px;
     color: white;
     margin: 20px 0; }
-    #verbs-all .result p:first-child, #verbs-new .result p:first-child {
+    #verbs-all .result p:first-child, #verbs-new .result p:first-child, #verbs-improve .result p:first-child {
       font-size: 20px;
       margin-bottom: 0px; }
-    #verbs-all .result p, #verbs-new .result p {
+    #verbs-all .result p, #verbs-new .result p, #verbs-improve .result p {
       font-size: 14px; }
-  #verbs-all .correct, #verbs-new .correct {
+  #verbs-all .correct, #verbs-new .correct, #verbs-improve .correct {
     background-color: #6CCC9B; }
-  #verbs-all .incorrect, #verbs-new .incorrect {
+  #verbs-all .incorrect, #verbs-new .incorrect, #verbs-improve .incorrect {
     background-color: #CC655C; }
 
 @media (min-width: 768px) {

@@ -76,6 +76,10 @@
         controller: 'VerbsCtrl',
         templateUrl: 'components/verbs/verbsNew.html',
         requiresLogin: true
+      }).when('/verbs/improve', {
+        controller: 'VerbsCtrl',
+        templateUrl: 'components/verbs/verbsToImprove.html',
+        requiresLogin: true
       });
     }
   ]);
@@ -169,6 +173,7 @@
       var results;
       $scope.verbs = VerbsService.getTen();
       $scope.isCorrect = false;
+      $scope.isImprove = false;
       results = [];
       $scope.createVerb = function(verb) {
         return verb = {
@@ -181,7 +186,21 @@
       };
       $scope.startAll = function() {
         $scope.answer = '';
+        $scope.isImprove = false;
         return $scope.verb = $scope.verbs[0];
+      };
+      $scope.startImprove = function() {
+        var $isImprove, toImproveCall;
+        $scope.answer = '';
+        $isImprove = true;
+        $scope.verbs = [];
+        toImproveCall = VerbsService.getTenToImprove($scope.range);
+        return toImproveCall.$promise.then(function(data) {
+          $scope.verbs = data;
+          $scope.verb = $scope.verbs[0];
+          console.log($scope.verbs);
+          return console.log($scope.verb);
+        });
       };
       $scope.evaluateQuestion = function(verb, answer) {
         if (answer === null) {
@@ -200,7 +219,7 @@
         return $scope.evaluate = !$scope.evaluate;
       };
       $scope.nextQuestion = function() {
-        var anotherVerbsCall;
+        var anotherVerbsCall, toImproveCall;
         console.log($scope.verbs.length);
         if ($scope.verbs.length > 1) {
           $scope.verbs.splice(0, 1);
@@ -210,11 +229,19 @@
           VerbsService.registerScore(results);
           results = [];
           console.log(results);
-          anotherVerbsCall = VerbsService.getTen();
-          anotherVerbsCall.$promise.then(function(data) {
-            $scope.verbs = data;
-            return $scope.verb = $scope.verbs[0];
-          });
+          if (!$scope.isImprove) {
+            anotherVerbsCall = VerbsService.getTen();
+            anotherVerbsCall.$promise.then(function(data) {
+              $scope.verbs = data;
+              return $scope.verb = $scope.verbs[0];
+            });
+          } else {
+            toImproveCall = VerbsService.getTenToImprove($scope.range);
+            toImproveCall.$promise.then(function(data) {
+              $scope.verbs = data;
+              return $scope.verb = $scope.verbs[0];
+            });
+          }
         }
         $scope.answer = '';
         $scope.verb = $scope.verbs[0];
@@ -270,6 +297,11 @@
           'register_score': {
             method: 'POST',
             url: serverURL + 'verbs/register_score'
+          },
+          'ten_to_improve': {
+            method: 'GET',
+            isArray: true,
+            url: serverURL + 'verbs/ten_to_improve'
           }
         });
       };
@@ -278,6 +310,11 @@
       };
       o.getTen = function() {
         return o.service().ten_random();
+      };
+      o.getTenToImprove = function(range) {
+        return o.service().ten_to_improve({
+          range: range
+        });
       };
       o.registerScore = function(scores) {
         return o.service().register_score({

@@ -22,4 +22,8 @@ app.config [ '$routeProvider', ($routeProvider) ->
 			controller: 'VerbsCtrl'
 			templateUrl: 'components/verbs/verbsNew.html'
 			requiresLogin: true
+		.when '/verbs/improve',
+			controller: 'VerbsCtrl'
+			templateUrl: 'components/verbs/verbsToImprove.html'
+			requiresLogin: true
 ]

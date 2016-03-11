@@ -5,7 +5,7 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 	# VERBS INDEX / PLAY ALL
 	$scope.verbs = VerbsService.getTen()
 	$scope.isCorrect = no
-
+	$scope.isImprove = no
 	results = []
 
 	# VERBS CREATE
@@ -19,7 +19,19 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 
 	$scope.startAll = ->
 		$scope.answer = ''
+		$scope.isImprove = no
 		$scope.verb = $scope.verbs[0]
+
+	$scope.startImprove = ->
+		$scope.answer = ''
+		$isImprove = yes
+		$scope.verbs = []
+		toImproveCall = VerbsService.getTenToImprove($scope.range)
+		toImproveCall.$promise.then (data) ->
+			$scope.verbs = data
+			$scope.verb = $scope.verbs[0]
+			console.log $scope.verbs
+			console.log $scope.verb
 
 	$scope.evaluateQuestion = (verb, answer) ->
 
@@ -51,10 +63,17 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 			VerbsService.registerScore(results)
 			results = []
 			console.log results
-			anotherVerbsCall = VerbsService.getTen()
-			anotherVerbsCall.$promise.then (data) ->
-			      $scope.verbs = data
-			      $scope.verb = $scope.verbs[0]
+
+			if !$scope.isImprove
+				anotherVerbsCall = VerbsService.getTen()
+				anotherVerbsCall.$promise.then (data) ->
+				      $scope.verbs = data
+				      $scope.verb = $scope.verbs[0]
+			else
+				toImproveCall = VerbsService.getTenToImprove($scope.range)
+				toImproveCall.$promise.then (data) ->
+					$scope.verbs = data
+					$scope.verb = $scope.verbs[0]
 
 			  
 		$scope.answer = ''

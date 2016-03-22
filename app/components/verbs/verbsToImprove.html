@@ -1,0 +1,55 @@
+<section id="verbs-improve">
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="jumbotron animated fadeIn">
+					<!-- FLASH FOR INSTRUCTIONS -->
+					<div class="flash" ng-hide="alertShow">
+						<h3>To Improve</h3>
+						<p>In this section you'll play the verbs that you  
+							haven't mastered yet. Choose the range you want to improve and 
+							you are good to go. Default is less than 70%. Good luck!
+						</p><br>
+
+						<div class="btn-group pull-right" role="group">
+
+							<select class='form-control form-inline' style=" width: auto;
+							display: inline-block;" name="singleSelect" id="singleSelect" ng-model="range">
+							<option value="">Select a range: 70%</option> <!-- not selected / blank option -->
+							<option value="0.1">10%</option> <!-- interpolation -->
+							<option value="0.3">30%</option>
+							<option value="0.5">50%</option>
+							<option value="0.7">70%</option>
+						</select>
+						<button ng-click="alertShow = !alertShow; startImprove()" class="btn btn-primary pull-right">Start</button></p>
+					</div>
+				</div>
+
+				<!-- THE ACTUAL GAME -->
+				<div ng-show="alertShow" class="container container-view">
+					<h2>{{verb.english | capitalize:'first' }}</h2>
+
+					<form >
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Answer" ng-disabled="evaluate" ng-model='answer' autofocus="true">
+							<span class="input-group-btn">
+								<button ng-hide="evaluate" class="btn btn-primary pull-right" ng-click="evaluateQuestion(verb, answer)"
+								ng-keydown="$event.which === 13 && evaluateQuestion(verb, answer)">Evaluate</button>
+								<button autofocus ng-show="evaluate" class="btn btn-primary pull-right" ng-click="nextQuestion()"
+								ng-keydown="$event.which === 13 && nextQuestion()">Next</button>
+							</span>
+						</div>
+					</form>
+					<div class="clearfix"></div>
+
+					<div class="result" ng-show="evaluate" ng-class="{correct: isCorrect, incorrect: !isCorrect}">
+						<p>The answer is <strong>{{verb.german}}</strong></p>
+						<p ng-show="isCorrect">Correct! You have it right!</p>
+						<p ng-hide="isCorrect">Nice try.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</section>

@@ -106,6 +106,9 @@
       $scope.GoToNew = function(section) {
         return $location.path('/' + section + '/new');
       };
+      $scope.GoToImprove = function(section) {
+        return $location.path('/' + section + '/improve');
+      };
       return $scope.items = [
         {
           title: 'Verbs',
@@ -169,11 +172,12 @@
   app = angular.module('studo');
 
   app.controller('VerbsCtrl', [
-    '$scope', '$http', 'VerbsService', '$location', '$filter', function($scope, $http, VerbsService, $location, $filter) {
-      var results;
+    '$scope', '$http', 'VerbsService', '$location', '$filter', 'serverURL', function($scope, $http, VerbsService, $location, $filter, serverURL) {
+      var $isEditMode, results;
       $scope.verbs = VerbsService.getTen();
       $scope.isCorrect = false;
       $scope.isImprove = false;
+      $isEditMode = false;
       results = [];
       $scope.createVerb = function(verb) {
         return verb = {
@@ -183,6 +187,31 @@
             'spanish': verb.spanish
           }
         };
+      };
+      $scope.change = function() {
+        var existingVerbsCall;
+        console.log($scope.verb.german);
+        $scope.existingVerbs = [];
+        existingVerbsCall = VerbsService.queryVerbs($scope.verb.german);
+        return existingVerbsCall.$promise.then(function(data) {
+          return $scope.existingVerbs = data;
+        });
+      };
+      $scope.edit = function(eVerb) {
+        $scope.isEditMode = true;
+        return $scope.verb = eVerb;
+      };
+      $scope.updateVerb = function(verb) {
+        verb = {
+          'id': verb.id,
+          'german': $filter('lowercase')(verb.german),
+          'english': $filter('lowercase')(verb.english),
+          'spanish': $filter('lowercase')(verb.spanish)
+        };
+        if (VerbsService.updateVerb(verb)) {
+          $scope.verb = null;
+          return $scope.existingVerbs = [];
+        }
       };
       $scope.startAll = function() {
         $scope.answer = '';
@@ -249,19 +278,16 @@
       };
       return $scope.submitForm = function(verb) {
         if ($scope.verbForm.$valid) {
-          verb = {
+          ({
             'verb': {
               'german': $filter('lowercase')(verb.german),
               'english': $filter('lowercase')(verb.english),
               'spanish': $filter('lowercase')(verb.spanish)
             }
-          };
-          return VerbsService.service().create(verb, function() {
-            alert('Verb successfully created!');
-            return $location.path('/');
-          }, function(error) {
-            return console.log(error);
           });
+          if (VerbsService.createVerb(verb)) {
+            return $scope.verb = null;
+          }
         }
       };
     }
@@ -289,6 +315,9 @@
             method: 'GET',
             isArray: true
           },
+          'update': {
+            method: 'PUT'
+          },
           'ten_random': {
             method: 'GET',
             isArray: true,
@@ -302,6 +331,11 @@
             method: 'GET',
             isArray: true,
             url: serverURL + 'verbs/ten_to_improve'
+          },
+          'existingVerbs': {
+            method: 'GET',
+            isArray: true,
+            url: serverURL + 'verbs/query_verb'
           }
         });
       };
@@ -310,6 +344,32 @@
       };
       o.getTen = function() {
         return o.service().ten_random();
+      };
+      o.updateVerb = function(verb) {
+        return o.service().update({
+          id: verb.id,
+          verb: verb
+        }, function() {
+          alert('Verb Updated Successfuly!');
+          return true;
+        }, function(error) {
+          return console.log(error);
+        });
+      };
+      o.createVerb = function(verb) {
+        return o.service().create({
+          verb: verb
+        }, function() {
+          alert('Verb successfully created!');
+          return true;
+        }, function(error) {
+          return console.log(error);
+        });
+      };
+      o.queryVerbs = function(input) {
+        return o.service().existingVerbs({
+          q: input
+        });
       };
       o.getTenToImprove = function(range) {
         return o.service().ten_to_improve({

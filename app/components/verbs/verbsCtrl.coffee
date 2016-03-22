@@ -1,11 +1,12 @@
 app = angular.module 'studo'
 
-app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$filter', ($scope, $http, VerbsService, $location, $filter) ->
+app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$filter', 'serverURL', ($scope, $http, VerbsService, $location, $filter, serverURL) ->
 
 	# VERBS INDEX / PLAY ALL
 	$scope.verbs = VerbsService.getTen()
 	$scope.isCorrect = no
 	$scope.isImprove = no
+	$isEditMode = no
 	results = []
 
 	# VERBS CREATE
@@ -16,6 +17,28 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 				'english': verb.english
 				'spanish': verb.spanish
 
+	$scope.change = () ->
+		console.log $scope.verb.german
+		$scope.existingVerbs = []
+		existingVerbsCall = VerbsService.queryVerbs($scope.verb.german)
+		existingVerbsCall.$promise.then (data) ->
+		      $scope.existingVerbs = data
+		
+	$scope.edit = (eVerb) ->
+		$scope.isEditMode = yes
+		$scope.verb = eVerb
+
+	$scope.updateVerb = (verb) ->
+
+		verb = 
+			'id': verb.id
+			'german': $filter('lowercase')(verb.german)
+			'english': $filter('lowercase')(verb.english)
+			'spanish': $filter('lowercase')(verb.spanish)
+
+		if VerbsService.updateVerb verb
+			$scope.verb = null
+			$scope.existingVerbs = []
 
 	$scope.startAll = ->
 		$scope.answer = ''
@@ -83,18 +106,13 @@ app.controller 'VerbsCtrl', [ '$scope', '$http', 'VerbsService', '$location', '$
 
 	$scope.submitForm = (verb) ->
 		if $scope.verbForm.$valid
-			verb = 
-				'verb':
-					'german': $filter('lowercase')(verb.german)
-					'english': $filter('lowercase')(verb.english)
-					'spanish': $filter('lowercase')(verb.spanish)
+			'verb':
+				'german': $filter('lowercase')(verb.german)
+				'english': $filter('lowercase')(verb.english)
+				'spanish': $filter('lowercase')(verb.spanish)
 
-			VerbsService.service().create verb, 
-				() ->
-					alert('Verb successfully created!')
-					$location.path '/'
-				(error) ->
-					console.log error
+			if VerbsService.createVerb verb
+				$scope.verb = null
 
 
 

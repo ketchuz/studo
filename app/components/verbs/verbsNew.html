@@ -1,14 +1,14 @@
 <section id="verbs-new">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2">
+			<div class="col-md-8">
 				<div class="jumbotron animated fadeInUp">
 					<h3 align="center">Create a New Verb</h3>
 
-					<form name="verbForm" ng-submit="submitForm(verb)" novalidate>
+					<form name="verbForm" novalidate>
 						<div class="form-group">
 							<label for="germanVerb">German Verb</label>
-							<input type="text" name="german" placeholder="Ex. Sein" class="form-control" ng-model='verb.german' required>
+							<input type="text" name="german" placeholder="Ex. Sein" class="form-control" ng-model='verb.german' ng-change="change()" required>
 							<p ng-show="verbForm.german.$invalid && !userForm.german.$pristine" class="help-block">The German verb is required.</p>
 						</div>
 						<div class="form-group">
@@ -24,12 +24,24 @@
 						
 						<div class="pull-right">
 							<a href="#/" type="button" class="btn btn-default">Cancel</a>
-							<button ng-disabled="verbForm.$invalid"
-							type="submit" class="btn btn-primary">Create</button>
+							<button ng-hide="isEditMode" ng-disabled="verbForm.$invalid || existingVerbs.length > 0" ng-click="submitForm(verb)" class="btn btn-primary">Create</button>
+							<button ng-show="isEditMode" ng-disabled="verbForm.$invalid ng-click="updateVerb(verb)" class="btn btn-primary">Update</button>
 						</div>
 
 
 					</form>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="jumbotron">
+					<h4>Existing Verbs</h4>
+					<div ng-repeat="eVerb in existingVerbs">
+						<span>{{eVerb.german}}</span>
+						<div class="pull-right">
+							<a ng-click="edit(eVerb)">Edit</a> |
+							<a>Destroy</a>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

@@ -14,6 +14,9 @@ app.controller 'HomeCtrl', [ '$scope', '$location', ($scope, $location) ->
 	$scope.GoToNew = (section) ->
 		$location.path '/' + section + '/new'
 
+	$scope.GoToImprove = (section) ->
+		$location.path '/' + section + '/improve'
+
 	$scope.items = [
 			title: 'Verbs'
 			description: "In this section you will be able to play the verbs you know so far. Not only can you revise its infinitive form but also it's most common future and past form."
